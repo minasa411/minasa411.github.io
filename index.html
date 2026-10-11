@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sachi Minami, UX researcher at Expedia.">
+  <title>Sachi Minami — UX Researcher</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #fff; color: #191919; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.55; }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:focus-visible { outline: 2px solid #203558; outline-offset: 5px; border-radius: 3px; }
+    .skip-link { position: absolute; left: 20px; top: -100px; padding: 12px 16px; background: #fff; z-index: 1; }
+    .skip-link:focus { top: 12px; }
+    .page { width: min(740px, calc(100% - 40px)); margin: 0 auto; }
+    header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 28px 0; font-size: 16px; }
+    header a { text-decoration: none; }
+    header .brand { font-size: 16px; font-weight: 700; line-height: 1.2; letter-spacing: -.025em; }
+    nav { display: flex; gap: 20px; color: #555; }
+    nav a { display: inline-flex; align-items: center; min-height: 44px; }
+    nav a:hover, nav a:focus-visible { color: #191919; text-decoration: underline; }
+    .home-main { padding-top: 24px; }
+    .intro-copy { margin: 0 0 80px; }
+    h1 { margin: 0 0 24px; font-size: 16px; font-weight: 700; line-height: 1.25; }
+    section, main { scroll-margin-top: 24px; }
+    .intro-copy p { margin: 0; color: #333; font-size: 1rem; line-height: 1.55; }
+    .intro-copy p + p { margin-top: 24px; }
+    section { border-top: 1px solid #ddd; padding: 32px 0 80px; }
+    h2 { margin: 0 0 32px; font-family: inherit; font-size: 16px; font-weight: 700; line-height: 1.25; letter-spacing: -.025em; }
+    section p { margin: 0; color: #555; font-size: 16px; }
+    section p + p { margin-top: 16px; }
+    #contact p { color: #333; font-size: 1rem; line-height: 1.55; }
+    #contact p + p { margin-top: 24px; }
+    #project-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 32px; margin: 0; }
+    .case { min-width: 0; text-align: left; }
+    .tile { position: relative; display: flex; align-items: flex-end; width: 100%; aspect-ratio: 4 / 3; min-height: 260px; overflow: hidden; border-radius: 16px; background: #e6e9f0; color: #203558; text-decoration: none; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--scale, 1)); transition: transform .35s cubic-bezier(.2,0,.08,1), box-shadow .35s cubic-bezier(.2,0,.08,1); will-change: transform; }
+    .tile:hover, a.tile:focus-visible { --scale: 1.025; box-shadow: 0 14px 28px #0002; }
+    .tile img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+    .tile img[src="assets/one-key-card/homepage-cards.jpg"] { height: 100%; object-fit: cover; object-position: center 60%; }
+    .tile img[src="assets/stay-10-nights-bellboy.jpg"] { object-fit: cover; object-position: center top; }
+    .tile-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 15%, rgba(0,0,0,.25) 45%, rgba(0,0,0,.9) 100%); }
+    .tile-content { position: relative; z-index: 1; width: 100%; padding: 24px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .project-tag { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; line-height: 1.5; }
+    .tag-mvp { background: #e0eaff; color: #243e77; }
+    .tag-post-launch { background: #d9eee1; color: #24563c; }
+    .tag-comprehension { background: #eee0f7; color: #653879; }
+    .tile-content h3 { margin: 0; color: inherit; font-size: clamp(24px, 3vw, 30px); font-weight: 600; line-height: 1.2; letter-spacing: -.025em; }
+    .tile-photo .tile-content { color: #fff; }
+    .case:nth-child(2) .tile { background: #eaf3fc; color: #563d35; }
+    .case h3 { margin: 24px 0 0; color: #191919; font-size: 16px; font-weight: 700; line-height: 1.4; }
+    .tile-photo .tile-content h3 { color: #fff; }
+    .tile-content .tile-subtitle { margin: 12px 0 0; color: #fff; font-size: 14px; font-weight: 400; line-height: 1.5; }
+    .case small { display: block; margin-top: 8px; color: #555; font-size: 14px; }
+    .case h3 a { color: inherit; text-decoration: underline; }
+    .case .case-action { display: inline-block; margin-top: 16px; padding: 10px 0; font-size: 16px; }
+    .case .case-status { margin-top: 16px; font-size: 14px; }
+    .case h3 a:hover, .case h3 a:focus-visible { text-decoration: underline; }
+    footer { border-top: 1px solid #ddd; padding: 32px 0 40px; color: #555; font-size: 13px; }
+    @media (max-width: 760px) { #project-list { grid-template-columns: 1fr; row-gap: 40px; } }
+    @media (max-width: 600px) { .home-main { padding-top: 16px; } .intro-copy { margin-bottom: 56px; } .intro-copy p { font-size: 16px; } .intro-copy p + p { margin-top: 20px; } section { padding: 24px 0 56px; } h2 { margin-bottom: 24px; } nav { gap: 12px; } .tile { border-radius: 16px; } }
+    @media (max-width: 420px) { header { flex-wrap: wrap; row-gap: 10px; } nav { width: 100%; } }
+    @media (max-width: 600px) { #contact p + p { margin-top: 20px; } footer { padding-top: 24px; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .tile { transition: none; transform: none; } .tile:hover { box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to main content</a>
+  <div class="page">
+    <header><a class="brand" href="#top">Sachi Minami</a><nav aria-label="Navigation"><a href="#projects">Projects</a><a href="#contact">Contact</a></nav></header>
+    <main id="top" class="home-main">
+      <div class="intro-copy">
+        <p>I’m Sachi, a London-based UX researcher with 5+ years of experience across travel, financial services, and the public sector.</p>
+        <p>I’m currently part of the Loyalty team at Expedia Group, where I explore what motivates travellers to engage, build loyalty, and choose to book with us. I previously worked at Deloitte Digital, where I helped improve public and financial services that directly impacted people’s everyday lives.</p>
+        <p>With a background in Social and Cognitive Psychology from UCL and the University of Exeter, I bring a strong foundation in research and behavioural science to understand how people think, feel, and make decisions.</p>
+      </div>
+      <section id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Projects</h2>
+        <div id="project-list">
+          <article class="case">
+            <a class="tile tile-photo" href="one-key-card.html" aria-label="Read the One Key Card case study">
+              <img src="assets/one-key-card/homepage-cards.jpg" alt="A One Key credit card held at a restaurant table" loading="lazy">
+              <div class="tile-content">
+                <div class="project-tags"><span class="project-tag tag-mvp">MVP</span><span class="project-tag tag-post-launch">Post-launch</span></div>
+                <h3>One Key Card</h3>
+                <p class="tile-subtitle">Supporting a 0→1 product from ambiguity through MVP launch and post-MVP optimisations.</p>
+              </div>
+            </a>
+          </article>
+          <article class="case">
+            <a class="tile tile-photo" href="stay-10-nights.html" aria-label="Read the Stay 10 nights, get £100 case study">
+              <img src="assets/stay-10-nights-bellboy.jpg" alt="Hotels.com Bellboy character against a red background" loading="lazy">
+              <div class="tile-content">
+                <div class="project-tags"><span class="project-tag tag-mvp">MVP</span><span class="project-tag tag-comprehension">Comprehension</span></div>
+                <h3>Stay 10 nights, get £100</h3>
+                <p class="tile-subtitle">Bringing member understanding into a rewards programme launch.</p>
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <p>If you’d like to talk about research or get in touch, you can email me at <a href="mailto:minasa411@gmail.com">minasa411@gmail.com</a> or connect with me on <a href="https://www.linkedin.com/in/sachiminami/">LinkedIn</a>.</p>
+      </section>
+    </main>
+    <footer>© 2026 Sachi Minami</footer>
+  </div>
+  <script>
+    if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+      document.querySelectorAll('.tile').forEach(tile => {
+        tile.addEventListener('pointermove', event => {
+          const rect = tile.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - .5;
+          const y = (event.clientY - rect.top) / rect.height - .5;
+          tile.style.setProperty('--rx', (-y * 2).toFixed(2) + 'deg');
+          tile.style.setProperty('--ry', (x * 2).toFixed(2) + 'deg');
+        });
+        tile.addEventListener('pointerleave', () => {
+          tile.style.removeProperty('--rx');
+          tile.style.removeProperty('--ry');
+        });
+      });
+    }
+  </script>
+</body>
+</html>
