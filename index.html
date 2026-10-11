@@ -115,12 +115,11 @@
       const sharedKey = accessToken.replace(/-/g, '+').replace(/_/g, '/') + '=';
       try {
         sessionStorage.setItem('portfolio-case-key:WNEWYtKir61XAgPVdrXrZQ==', sharedKey);
-      } catch {
-        // Preserve access when browser storage is unavailable.
-        document.querySelectorAll('.tile').forEach(tile => {
-          tile.href += '#access=' + encodeURIComponent(accessToken);
-        });
-      }
+      } catch {}
+      // Carry access with the destination so navigation does not rely on storage.
+      document.querySelectorAll('.tile').forEach(tile => {
+        tile.href += '#access=' + encodeURIComponent(accessToken);
+      });
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
     if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
