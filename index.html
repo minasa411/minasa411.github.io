@@ -108,6 +108,21 @@
     <footer>© 2026 Sachi Minami</footer>
   </div>
   <script>
+    // A shared access link unlocks all case studies for this browser session.
+    const accessParams = new URLSearchParams(window.location.hash.slice(1));
+    const accessToken = accessParams.get('access');
+    if (accessToken && /^[A-Za-z0-9_-]{43}$/.test(accessToken)) {
+      const sharedKey = accessToken.replace(/-/g, '+').replace(/_/g, '/') + '=';
+      try {
+        sessionStorage.setItem('portfolio-case-key:WNEWYtKir61XAgPVdrXrZQ==', sharedKey);
+      } catch {
+        // Preserve access when browser storage is unavailable.
+        document.querySelectorAll('.tile').forEach(tile => {
+          tile.href += '#access=' + encodeURIComponent(accessToken);
+        });
+      }
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
     if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
       document.querySelectorAll('.tile').forEach(tile => {
         tile.addEventListener('pointermove', event => {
