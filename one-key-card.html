@@ -51,5 +51,25 @@ form.addEventListener('submit',async event=>{
   await showCaseStudy(key);
  }catch{status.textContent='Incorrect password. Please try again.';input.setAttribute('aria-invalid','true');input.focus();button.disabled=false;button.textContent='View case study';}
 });
-restoreSession();
+async function unlockFromLink(){
+ const params=new URLSearchParams(window.location.hash.slice(1));
+ const token=params.get('access');
+ if(!token){await restoreSession();return;}
+ // Remove the secret from the visible URL and current history entry.
+ history.replaceState(null,'',window.location.pathname+window.location.search);
+ const gate=document.querySelector('main');
+ if(gate)gate.style.visibility='hidden';
+ button.disabled=true;button.textContent='Unlocking…';
+ try{
+  if(!window.crypto?.subtle)throw new Error('Secure context required');
+  if(!/^[A-Za-z0-9_-]{43}$/.test(token))throw new Error('Invalid access token');
+  const key=await crypto.subtle.importKey('raw',fromBase64(token.replace(/-/g,'+').replace(/_/g,'/')+'='),{name:'AES-GCM'},true,['decrypt']);
+  await showCaseStudy(key);
+ }catch{
+  if(gate)gate.style.visibility='visible';
+  button.disabled=false;button.textContent='View case study';
+  status.textContent='This access link could not unlock the case study. Please enter the password.';
+ }
+}
+unlockFromLink();
 </script></body></html>
